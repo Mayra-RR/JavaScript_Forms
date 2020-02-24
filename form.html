@@ -1,86 +1,176 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Form validation</title>
     <link rel="stylesheet" href="css/main.css">
 </head>
+
 <body>
-<section id="exercise">
-    Create a function that validates the next form, each field should be validated when it loses focus, if the field does not meet the requirements a message should appear in the Errors section
+    <section id="exercise">
+        Create a function that validates the next form, each field should be validated when it loses focus, if the field
+        does not meet the requirements a message should appear in the Errors section
 
-    when the user Submits the form, you should validate all the fields in the form and if there is an error in one of the fields, the form won't be sent.
+        when the user Submits the form, you should validate all the fields in the form and if there is an error in one
+        of the fields, the form won't be sent.
 
-    This are the requirements for each field:
+        This are the requirements for each field:
 
-    <ul>
-        <li><label>First Name, Email, Comments:</label> are required fields</li>
-        <li><label>Email:</label> should be a valid email address</li>
-        <li><label>Comments:</label> the character max limit is 50</li>
-        <li><label>Password:</label> should have a 6 characters minimum length and contains at leas 1 lowercase, 1 uppercase and 1 digit</li>
+        <ul>
+            <li><label>First Name, Email, Comments:</label> are required fields</li>
+            <li><label>Email:</label> should be a valid email address</li>
+            <li><label>Comments:</label> the character max limit is 50</li>
+            <li><label>Password:</label> should have a 6 characters minimum length and contains at leas 1 lowercase, 1
+                uppercase and 1 digit</li>
 
-    </ul>
-</section>
-<section class="container">
-    <form method="POST" id="signIn">
-        <fieldset>
-            <legend>Sign In</legend>
-            <ul class="flex-outer">
-                <li>
-                    <label for="first-name">First Name</label>
-                    <input type="text" id="first-name" placeholder="Enter your first name here">
-                </li>
-                <li>
-                    <label for="last-name">Last Name</label>
-                    <input type="text" id="last-name" placeholder="Enter your last name here">
-                </li>
-                <li>
-                    <label for="email">Email</label>
-                    <input type="text" id="email" placeholder="Enter your email here">
-                </li>
-                <li>
-                    <label for="password">Password</label>
-                    <input type="password" id="password" placeholder="Enter your password here">
-                </li>
-                <li>
-                    <label for="phone">Phone</label>
-                    <input type="text" id="phone" placeholder="Enter your phone here">
-                </li>
-                <li>
-                    <p>Vehicle</p>
-                    <ul class="vehicle">
+        </ul>
+    </section>
+    <section class="container">
+        <form method="POST" id="signIn" name="">
+            <fieldset>
+                <legend>Sign In</legend>
+                <ul class="flex-outer">
+                    <li>
+                        <label for="first-name">First Name</label>
+                        <input type="text" id="first-name" placeholder="Enter your first name here"
+                            onblur="validateName(this)">
+                    </li>
+                    <li>
+                        <label for="last-name">Last Name</label>
+                        <input type="text" id="last-name" placeholder="Enter your last name here">
+                    </li>
+                    <li>
+                        <label for="email">Email</label>
+                        <input type="text" id="email" placeholder="Enter your email here" onblur="validateEmail(this)">
+                    </li>
+                    <li>
+                        <label for="password">Password</label>
+                        <input type="password" id="password" placeholder="Enter your password here"
+                            onblur="validatePassword(this)">
+                    </li>
+                    <li>
+                        <label for="phone">Phone</label>
+                        <input type="text" id="phone" placeholder="Enter your phone here">
+                    </li>
+                    <div>
                         <li>
-                            <input type="checkbox" id="car" name="car" value="car">
-                            <label for="car">I have a Car</label>
+
+                            <!-- VEHICLE FORM FIELD -->
+                            <p>Vehicle</p>
+                            <ul class="vehicle">
+
+                                <!-- CAR'FORM -->
+                                <li >
+                                    <input type="checkbox" id="car" name="car" value="car" onclick="displayCar()">
+                                    <label for="car">I own a Car</label>
+                                </li>
+                                <fieldset class="car-form hiddencar">
+                                    <ul>
+                                        <li>
+                                            <label for="car">CAR</label><br>
+                                            
+                                            <div>
+                                                Make:
+                                                <input type="text" id="car-make"
+                                                    onblur="validateString(this, 'makeError')" />
+                                                <h6 id="makeError" style="margin: 0; color: red;" hidden>
+                                                    Error
+                                                </h6>
+                                            </div>
+                                            <br>
+                                            <div>Model: <input type="text" id="car-model" /></div>
+                                            <form id="color" onblur="validateRbutton(this)">
+                                                <label for="Color"> Color: </label><br />
+                                                <input type="radio" name="color" id="White" />
+                                                <label for="White">White</label><br />
+                                                <input type="radio" name="color" id="Black" />
+                                                <label for="Black">Black</label><br />
+                                                <input type="radio" name="color" id="Red" />
+                                                <label for="Red">Red</label><br />
+                                                <input type="radio" name="color" id="Silver" />
+                                                <label for="Silver">Silver</label><br />
+                                                <input type="radio" name="color" id="Green" />
+                                                <label for="Green">Green</label><br />
+                                                <h6 id="colorError" style="margin: 0; color: red;" hidden>
+                                                    Error
+                                                </h6>
+                                            </form>
+                                            <div>
+                                                Doors:
+                                                <input type="number" min="1" max="5" id="Doors"
+                                                    onblur="validateString(this, 'doorsError')" />
+                                                <h6 id="doorsError" style="margin: 0; color: red;" hidden>
+                                                    Error
+                                                </h6>
+                                            </div>
+
+                                    </ul>
+                                </fieldset>
                         </li>
+                        <!-------------------------------- BICYCLE FORM -------------------------------------------------->
                         <li>
-                            <input type="checkbox" id="bike" name="bike" value="bike">
-                            <label for="bike">I have a Bike</label>
+                            <input type="checkbox" id="bike" name="bike" value="bike" onclick="displayBike()" />
+                            <label for="bike">I own a Bike</label>
                         </li>
+                        <fieldset class="bike-form hiddenbike">
+                            <ul>
+                                <li>
+                                    <label for="bike">BIKE</label><br />
+                                    Make: <input type="text" id="bike-make" />
+                                    Model: <input type="text" id="bike-model" />
+                                    Color: <input type="text" id="bike-color" />
+                                    Accesories:
+                                    Pedals: <input type="checkbox" /> Tire: <input type="checkbox" />
+                                    Lights: <input type="checkbox" />
+                                </li>
+                            </ul>
+                        </fieldset>
+                        <!-- MOTORCYCLE FORM -->
                         <li>
-                            <input type="checkbox" id="motorcycle" name="motorcycle" value="motorcycle">
+                            <input type="checkbox" id="motorcycle" name="motorcycle" value="motorcycle"
+                                onclick="displayMotorcycle()" />
                             <label for="motorcycle">I have a Motorcycle</label>
                         </li>
-                    </ul>
-                </li>
-                <li>
-                    <label for="comments">Comments</label>
-                    <textarea rows="6" id="comments" placeholder="Enter your comments here"></textarea>
-                </li>
-                <li class="error-list hidden">
-                    <label>Error</label>
-                    <ul>
-                        <li>first name</li>
-                    </ul>
-                </li>
-                <li>
-                    <button type="submit">Submit</button>
-                </li>
-            </ul>
-        </fieldset>
-    </form>
-</section>
-<script type="text/javascript" src="js/main.js"></script>
+                        <fieldset class="motorcycle-form hiddenmotorcycle">
+                            <ul>
+                                <li>
+                                    <label for="motorcycle">Motorcycle</label><br>
+                                    Make: <input type="text" id="motorcycle-make">
+                                    Model: <input type="text" id="motorcycle-model">
+                                    Color: <input type="radio" name="color" id="Blanco">Red
+                                    <input type="radio" name="color" id="blue">Blue
+                                    <input type="radio" name="color" id="black">Black
+                                    <input type="radio" name="color" id="green">Green
+                                    <input type="radio" name="color" id="yellow">Yellow
+                                    Type: <input type="radio" name="color" id="city">City
+                                    <input type="radio" name="color" id="road">Road
+                                    <input type="radio" name="color" id="terrain">All-Terrain
+                                </li>
+                            </ul>
+                        </fieldset>
+
+                    </div>
+                    <li>
+                        <label for="comments">Comments</label>
+                        <textarea rows="6" id="comments" placeholder="Enter your comments here"
+                            onblur="validateComment(this)"></textarea>
+                    </li>
+                    <li class="error-list hidden">
+                        <label>Error</label>
+                        <ul id="listErrors">
+                            <li>"first name"</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <button type="submit" onclick="submitButton()">Submit</button>
+                    </li>
+                </ul>
+            </fieldset>
+        </form>
+    </section>
+    <script type="text/javascript" src="js/main.js"></script>
 </body>
+
 </html>
